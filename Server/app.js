@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var db = require('./helper/database');
 console.log('Server Connected')
 var Players = 0;
-
+var clientPlayer
 
 //connect to mongoose
 mongoose.connect(db.mongoURI ,{
@@ -43,22 +43,30 @@ io.on('connection', function(socket)
 
 socket.on('AttemptLogin',function(data){
     User.findOne({name:data.Username}).then(function(user){
+       
         if(user.password == data.Password)
         {
-            console.log("password accepted")
-            socket.emit("LoginAccepted")
+            console.log(user.Username + " has connected. Waiting for 1 more player")
+            
+            clientPlayer = user;
+            socket.emit("LoginAccepted", clientPlayer)
             Players++;
         }else 
         {
             console.log(user.password)
             console.log(data.Password)   
             console.log("password denied")
+
             socket.emit("LoginDenied")
         }
     })
-
-
 })
+
+    if(Players == 2)
+    {
+         socket.on('startGame')
+    }
+
 
 
 })
