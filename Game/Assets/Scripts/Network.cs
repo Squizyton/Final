@@ -4,33 +4,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class Network : MonoBehaviour
 {
 
     static SocketIOComponent socket;
-    public GameObject ServerStatus,incorrect;
 
+
+    public GameObject ServerStatus,incorrect, DataTransfer;
+
+    
     public InputField regUsername, regPassword, regEmail, logUser,logPass;
 
     public bool IsConnected = false;
     // Start is called before the first frame update
+
+
+
     void Start()
+
+
     {
         socket = GetComponent<SocketIOComponent>();
         socket.On("open", OnConnected);
         socket.On("login", OnLogin);
         socket.On("LoginAccepted", LoginAccepted);
         socket.On("LoginDenied", LoginDenied);
+        
     }
 
-    private void LoginDenied(SocketIOEvent obj)
+    
+
+    private void LoginDenied(SocketIOEvent e)
     {
         incorrect.SetActive(true);
     }
 
-    private void LoginAccepted(SocketIOEvent obj)
+    private void LoginAccepted(SocketIOEvent e)
     {
+        
+        SceneManager.LoadScene("Game");
         Debug.Log("Login Accepted");
     }
 
@@ -56,6 +69,8 @@ public class Network : MonoBehaviour
     }
     public void AttemptLogin()
     {
+        DataTransfer = GameObject.Find("DataTransfer");
+        DataTransfer.GetComponent<SceneTransfer>().StringTransfer += logUser.text;
         JSONObject data = new JSONObject();
         data.AddField("Username", logUser.text);
         data.AddField("Password", logPass.text);
@@ -66,6 +81,7 @@ public class Network : MonoBehaviour
         throw new NotImplementedException();
     }
 
+
     // Update is called once per frame
     void Update()   
     {
@@ -73,5 +89,6 @@ public class Network : MonoBehaviour
         {
             ServerStatus.GetComponent<Text>().text = "Server Status: Connected";
         }
+      
     }
 }

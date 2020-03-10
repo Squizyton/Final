@@ -9,9 +9,8 @@ var router = express.Router();
 console.log('Server Connected')
 var Players = 0;
 var WebSitePort = 4000;
-var clientPlayer
 var bodyParser = require('body-parser');
-
+var listPlayers = [];
 //this code sets up template engine as express handlebars
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
@@ -38,7 +37,7 @@ var User = mongoose.model('users');
 
 io.on('connection', function (socket) {
     var id = short.generate()
-    console.log(id);
+   // console.log(id);
 
     socket.emit('open', { status: "Connected" });
 
@@ -60,11 +59,16 @@ io.on('connection', function (socket) {
         User.findOne({ name: data.Username }).then(function (user) {
 
             if (user.password == data.Password) {
-                if (Players > 2) {
+                if (Players < 2) {
                     console.log(user.Username + " has connected. Waiting for 1 more player")
                 }
-                clientPlayer = user;
-                socket.emit("LoginAccepted", clientPlayer)
+                if(!listPlayers.includes(user))
+                {
+                     listPlayers.push(user);
+                }
+                socket.emit("LoginAccepted", user)
+                for(var x = 0; x < listPlayers.length;x++)
+                console.log(user);
                 Players++;
             } else {
                 console.log(user.password)
@@ -76,9 +80,28 @@ io.on('connection', function (socket) {
         })
     })
 
-    if (Players == 2) {
-        socket.on('startGame')
-    }
+    socket.on('Test', function(data){
+        console.log('Client Connected')
+       
+    })
+
+
+    if(Players == 2)
+{   
+    console.log('Sending Players')
+        for(var x = 0; x < listPlayers.length;x++)
+        {
+            console.log("Sending Player: "+ x)
+            User.findOne({name:listPlayers[x].username}).then(function(user){
+                if(user != null)
+                {
+                    socket.broadcast.emit('MakePlayer', user)
+                }
+
+            }) 
+        } 
+}
+
 
     //----------------------------------------------------------------------
 })
@@ -111,6 +134,22 @@ app.post('/users/login', function (req, res, next) {
         }
     })
 });
+
+//List Users as a guest
+app.get('/users/listusers', function (req, res) {
+    User.find().then(function(user){
+        res.render('users/listusers',{
+            User:user,
+            Name:user.name,
+           // Wins:user.Wins,
+           // Losses:user.Losses
+        })
+
+    })
+});
+
+//List Users as Admin
+
 
 app.listen(WebSitePort, function () {
     console.log("Website running on port 4000");

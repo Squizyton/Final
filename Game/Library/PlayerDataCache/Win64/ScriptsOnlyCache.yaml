@@ -1,7 +1,10 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - GameNetwork
     - Network
+    - Player
+    - SceneTransfer
     - SocketIO.SocketIOComponent
     - UIManager
     Unity.2D.Tilemap.Editor.dll:
@@ -32,6 +35,55 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.InputField
     - UnityEngine.UI.Text
   sceneClasses:
+    Assets/Scenes/Game.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11178}
+    - Class: 114
+      Script: {instanceID: 11366}
+    - Class: 114
+      Script: {instanceID: 11884}
+    - Class: 114
+      Script: {instanceID: 12242}
+    - Class: 114
+      Script: {instanceID: 12940}
+    - Class: 114
+      Script: {instanceID: 13370}
+    - Class: 114
+      Script: {instanceID: 14110}
+    - Class: 114
+      Script: {instanceID: 17578}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
     Assets/Scenes/MainMenu.unity:
     - Class: 1
       Script: {instanceID: 0}
@@ -54,27 +106,29 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11176}
+      Script: {instanceID: 11178}
     - Class: 114
-      Script: {instanceID: 11362}
+      Script: {instanceID: 11332}
     - Class: 114
-      Script: {instanceID: 11406}
+      Script: {instanceID: 11366}
     - Class: 114
-      Script: {instanceID: 11880}
+      Script: {instanceID: 11410}
     - Class: 114
-      Script: {instanceID: 12238}
+      Script: {instanceID: 11884}
     - Class: 114
-      Script: {instanceID: 12350}
+      Script: {instanceID: 12242}
     - Class: 114
-      Script: {instanceID: 12570}
+      Script: {instanceID: 12354}
     - Class: 114
-      Script: {instanceID: 12638}
+      Script: {instanceID: 12574}
     - Class: 114
-      Script: {instanceID: 12936}
+      Script: {instanceID: 12642}
     - Class: 114
-      Script: {instanceID: 13366}
+      Script: {instanceID: 12940}
     - Class: 114
-      Script: {instanceID: 14022}
+      Script: {instanceID: 13370}
+    - Class: 114
+      Script: {instanceID: 23698}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -130,6 +184,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: GroupTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 86bc5d655537d793636781ddfd5449d9
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Network
   - hash:
       serializedVersion: 2
       Hash: a5781dc71a671b1ad2b38de19f24b71f
@@ -558,12 +618,25 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: 6c508e46c42c6f2061c6550f11403b6d
+      Hash: b8a7369ce3cc9af916b06c00efafa366
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: Network
+    className: Player
+  - hash:
+      serializedVersion: 2
+      Hash: 303b5d95644bedb05906ef38cfee53bd
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GameNetwork
+  - hash:
+      serializedVersion: 2
+      Hash: 61d5c93bbc4439a613e13f94660b47f5
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SceneTransfer
   platform: 19
   scenePathNames:
   - Assets/Scenes/MainMenu.unity
+  - Assets/Scenes/Game.unity
   playerPath: C:/Users/008001163/OneDrive - New England Institute of Technology/Quarter
     10/Web API/Week 10/Final/Builds/WebAPI Final.exe
