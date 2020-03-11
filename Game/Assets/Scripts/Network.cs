@@ -11,16 +11,16 @@ public class Network : MonoBehaviour
     static SocketIOComponent socket;
 
 
-    public GameObject ServerStatus,incorrect, DataTransfer;
-
-    
+    public GameObject ServerStatus,incorrect, DataTransfer, ManagerOfUI;
+    public GameObject playerSpawn;
+    public int InLobby;
     public InputField regUsername, regPassword, regEmail, logUser,logPass;
-
+    public string 
     public bool IsConnected = false;
     // Start is called before the first frame update
 
 
-
+    Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
     void Start()
 
 
@@ -30,7 +30,7 @@ public class Network : MonoBehaviour
         socket.On("login", OnLogin);
         socket.On("LoginAccepted", LoginAccepted);
         socket.On("LoginDenied", LoginDenied);
-        
+        socket.On("MakePlayer", MakePlayers);
     }
 
     
@@ -42,8 +42,9 @@ public class Network : MonoBehaviour
 
     private void LoginAccepted(SocketIOEvent e)
     {
-        
-        SceneManager.LoadScene("Game");
+
+       ManagerOfUI.GetComponent<UIManager>().GameUI();
+        //SceneManager.LoadScene("Game");
         Debug.Log("Login Accepted");
     }
 
@@ -79,6 +80,19 @@ public class Network : MonoBehaviour
     void OnLogin(SocketIOEvent e)
     {
         throw new NotImplementedException();
+    }
+
+
+    private void MakePlayers(SocketIOEvent e)
+    {
+        InLobby++;
+        GameObject player = Instantiate(playerSpawn);
+        player.GetComponent<Player>().Name = e.data["name"].ToString();
+        player.GetComponent<Player>().Wins = e.data["Wins"].ToString();
+        player.GetComponent<Player>().Losses = e.data["Losses"].ToString();
+        player.GetComponent<Player>().PlayerNumber = players.Count + 1;
+        players.Add(player.name, player);
+        Debug.Log("Made Player: " + e.data["name"].ToString());
     }
 
 

@@ -37,7 +37,7 @@ var User = mongoose.model('users');
 
 io.on('connection', function (socket) {
     var id = short.generate()
-   // console.log(id);
+    // console.log(id);
 
     socket.emit('open', { status: "Connected" });
 
@@ -57,19 +57,31 @@ io.on('connection', function (socket) {
 
     socket.on('AttemptLogin', function (data) {
         User.findOne({ name: data.Username }).then(function (user) {
-
             if (user.password == data.Password) {
                 if (Players < 2) {
-                    console.log(user.Username + " has connected. Waiting for 1 more player")
+                    console.log(user.name + " has connected. Waiting for 1 more player")
                 }
-                if(!listPlayers.includes(user))
-                {
-                     listPlayers.push(user);
+                if (!listPlayers.includes(user)) {
+                    listPlayers.push(user);
+                    console.log(listPlayers[1])
                 }
                 socket.emit("LoginAccepted", user)
-                for(var x = 0; x < listPlayers.length;x++)
-                console.log(user);
-                Players++;
+                    Players++;
+                
+                if (Players === 2) {
+
+                    console.log("Player Amount:" + listPlayers.length)
+                    console.log('Sending Players')
+                    for (var x = 0; x < listPlayers.length + 1; x++) {
+                            console.log(listPlayers[x])
+                                io.sockets.emit('MakePlayer', listPlayers[x])
+                                
+                                
+                    }
+                    io.sockets.emit('StartGame')
+                    listPlayers.clear();
+                }
+
             } else {
                 console.log(user.password)
                 console.log(data.Password)
@@ -80,30 +92,14 @@ io.on('connection', function (socket) {
         })
     })
 
-    socket.on('Test', function(data){
+    socket.on('Test', function (data) {
         console.log('Client Connected')
-       
+
     })
 
 
-    if(Players == 2)
-{   
-    console.log('Sending Players')
-        for(var x = 0; x < listPlayers.length;x++)
-        {
-            console.log("Sending Player: "+ x)
-            User.findOne({name:listPlayers[x].username}).then(function(user){
-                if(user != null)
-                {
-                    socket.broadcast.emit('MakePlayer', user)
-                }
+    //-----------
 
-            }) 
-        } 
-}
-
-
-    //----------------------------------------------------------------------
 })
 
 //Website
@@ -129,20 +125,20 @@ app.post('/users/login', function (req, res, next) {
         else if (user.password == req.body.password) {
             console.log("User logged in to site")
         }
-        else if(user.password != req.body.password) {
-            console.log("User: " + user.name +  " failed to log into site " + "User Password: " + user.password + " Entered Password: " + req.body.password)
+        else if (user.password != req.body.password) {
+            console.log("User: " + user.name + " failed to log into site " + "User Password: " + user.password + " Entered Password: " + req.body.password)
         }
     })
 });
 
 //List Users as a guest
 app.get('/users/listusers', function (req, res) {
-    User.find().then(function(user){
-        res.render('users/listusers',{
-            User:user,
-            Name:user.name,
-           // Wins:user.Wins,
-           // Losses:user.Losses
+    User.find().then(function (user) {
+        res.render('users/listusers', {
+            user: user,
+            name: user.name,
+            wins: user.Wins,
+            losses: user.Losses
         })
 
     })
