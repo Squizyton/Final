@@ -65,21 +65,22 @@ io.on('connection', function (socket) {
                     listPlayers.push(user);
                     console.log(listPlayers[1])
                 }
-                socket.emit("LoginAccepted", user)
+               
                     Players++;
-                
+                    socket.emit("LoginAccepted",user)
+                    socket.emit("GetPlayerNumber", {playerNumber: Players})
                 if (Players === 2) {
 
                     console.log("Player Amount:" + listPlayers.length)
                     console.log('Sending Players')
-                    for (var x = 0; x < listPlayers.length + 1; x++) {
+                    for (var x = 0; x < listPlayers.length; x++) {
                             console.log(listPlayers[x])
                                 io.sockets.emit('MakePlayer', listPlayers[x])
                                 
                                 
                     }
                     io.sockets.emit('StartGame')
-                    listPlayers.clear();
+                    listPlayers = [];
                 }
 
             } else {

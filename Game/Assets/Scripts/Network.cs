@@ -11,11 +11,11 @@ public class Network : MonoBehaviour
     static SocketIOComponent socket;
 
 
-    public GameObject ServerStatus,incorrect, DataTransfer, ManagerOfUI;
+    public GameObject ServerStatus,incorrect, DataTransfer, ManagerOfUI, gameManager;
     public GameObject playerSpawn;
     public int InLobby;
     public InputField regUsername, regPassword, regEmail, logUser,logPass;
-    public string 
+    public int PlayerNumber;
     public bool IsConnected = false;
     // Start is called before the first frame update
 
@@ -31,9 +31,20 @@ public class Network : MonoBehaviour
         socket.On("LoginAccepted", LoginAccepted);
         socket.On("LoginDenied", LoginDenied);
         socket.On("MakePlayer", MakePlayers);
+        socket.On("GetPlayerNumber", GetNumber);
+        socket.On("StartGame", StartGame);
     }
 
-    
+    private void StartGame(SocketIOEvent obj)
+    {
+        Debug.Log("Game Started");
+        ManagerOfUI.GetComponent<UIManager>().GameStart();
+    }
+
+    private void GetNumber(SocketIOEvent obj)
+    {
+        PlayerNumber = int.Parse(obj.data["playerNumber"].ToString());
+    }
 
     private void LoginDenied(SocketIOEvent e)
     {
@@ -43,7 +54,9 @@ public class Network : MonoBehaviour
     private void LoginAccepted(SocketIOEvent e)
     {
 
-       ManagerOfUI.GetComponent<UIManager>().GameUI();
+       
+        ManagerOfUI.GetComponent<UIManager>().GameUI();
+        //PlayerNumber = int.Parse(e.data["playerNumber"].ToString());
         //SceneManager.LoadScene("Game");
         Debug.Log("Login Accepted");
     }
@@ -87,6 +100,7 @@ public class Network : MonoBehaviour
     {
         InLobby++;
         GameObject player = Instantiate(playerSpawn);
+        player.name = "Player"+ players.Count + 1;
         player.GetComponent<Player>().Name = e.data["name"].ToString();
         player.GetComponent<Player>().Wins = e.data["Wins"].ToString();
         player.GetComponent<Player>().Losses = e.data["Losses"].ToString();

@@ -1,6 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - GameManager
     - GameNetwork
     - Network
     - Player
@@ -55,21 +56,21 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11386}
+      Script: {instanceID: 11178}
     - Class: 114
-      Script: {instanceID: 11574}
+      Script: {instanceID: 11366}
     - Class: 114
-      Script: {instanceID: 11690}
+      Script: {instanceID: 11482}
     - Class: 114
-      Script: {instanceID: 12094}
+      Script: {instanceID: 11886}
     - Class: 114
-      Script: {instanceID: 12452}
+      Script: {instanceID: 12244}
     - Class: 114
-      Script: {instanceID: 13150}
+      Script: {instanceID: 12942}
     - Class: 114
-      Script: {instanceID: 13490}
+      Script: {instanceID: 13282}
     - Class: 114
-      Script: {instanceID: 13584}
+      Script: {instanceID: 13376}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -106,31 +107,33 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11386}
+      Script: {instanceID: 11178}
     - Class: 114
-      Script: {instanceID: 11540}
+      Script: {instanceID: 11332}
     - Class: 114
-      Script: {instanceID: 11574}
+      Script: {instanceID: 11366}
     - Class: 114
-      Script: {instanceID: 11618}
+      Script: {instanceID: 11410}
     - Class: 114
-      Script: {instanceID: 12094}
+      Script: {instanceID: 11886}
     - Class: 114
-      Script: {instanceID: 12452}
+      Script: {instanceID: 12244}
     - Class: 114
-      Script: {instanceID: 12564}
+      Script: {instanceID: 12356}
     - Class: 114
-      Script: {instanceID: 12784}
+      Script: {instanceID: 12576}
     - Class: 114
-      Script: {instanceID: 12852}
+      Script: {instanceID: 12644}
     - Class: 114
-      Script: {instanceID: 13150}
+      Script: {instanceID: 12942}
     - Class: 114
-      Script: {instanceID: 13202}
+      Script: {instanceID: 12994}
     - Class: 114
-      Script: {instanceID: 13490}
+      Script: {instanceID: 13282}
     - Class: 114
-      Script: {instanceID: 13584}
+      Script: {instanceID: 13376}
+    - Class: 114
+      Script: {instanceID: 14200}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -188,7 +191,7 @@ ScriptsOnlyBuild:
     className: GroupTrack
   - hash:
       serializedVersion: 2
-      Hash: f3fe5bf41e85c4952e6c93f5c378f8d0
+      Hash: 6aa5eeee46fa2960722c241330582d17
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Network
@@ -470,7 +473,7 @@ ScriptsOnlyBuild:
     className: Physics2DRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 65ff9dc45a87d080e83a54be5a3883bd
+      Hash: b87dc44322c2cd44eeabd77ed9305f4e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIManager
@@ -636,6 +639,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: fd5f49b4680729a88e770a05cedb85c0
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GameManager
   platform: 19
   scenePathNames:
   - Assets/Scenes/MainMenu.unity

@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
 
     // Start is called before the first frame update
 
-    public GameObject LoginButton, CreateAccountButton, LoginFields, CreateAccountFields,uiGame;
+    public GameObject LoginButton, CreateAccountButton, LoginFields, CreateAccountFields,uiGame, gameButtons, waiting,stats;
 
 
     void Start()
@@ -41,5 +41,11 @@ public class UIManager : MonoBehaviour
         LoginFields.SetActive(false);
         uiGame.SetActive(true);
     }
+    public void GameStart()
+    {
+        waiting.SetActive(false);         
+        gameButtons.SetActive(true);
+    }
+
 
 }
