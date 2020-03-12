@@ -5,10 +5,12 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
-    public string Name, Wins, Losses;
+    public string Name;
+    public int Wins, Losses;
     public int PlayerNumber;
 
-    public Text winsText,nameText,lossesText;
+    public Text winsText, nameText, lossesText;
+    public string picked;
 
     void Start()
     {
@@ -20,9 +22,17 @@ public class Player : MonoBehaviour
         lossesText.text += Losses;
     }
 
+    void SetWinLoss()
+    {
+        this.winsText.text ="Wins: " +  Wins;
+        this.lossesText.text += "Losses: " + Wins; 
+    }
+
+
+
     // Update is called once per frame
     void Update()
     {
-        
+    
     }
 }

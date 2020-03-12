@@ -34,9 +34,9 @@ public class GameNetwork : MonoBehaviour
         InLobby++;
         GameObject player = Instantiate(playerSpawn);
         player.GetComponent<Player>().Name = e.data["name"].ToString();
-        player.GetComponent<Player>().Wins = e.data["Wins"].ToString();
-        player.GetComponent<Player>().Losses = e.data["Losses"].ToString();
-        player.GetComponent<Player>().PlayerNumber = players.Count + 1;
+       // player.GetComponent<Player>().Wins = e.data["Wins"].ToString();
+      //  player.GetComponent<Player>().Losses = e.data["Losses"].ToString();
+       // player.GetComponent<Player>().PlayerNumber = players.Count + 1;
         players.Add(player.name, player);
         playerLoaded = true;
         Debug.Log("Made Player: " + e.data["name"].ToString());

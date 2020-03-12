@@ -63,7 +63,7 @@ io.on('connection', function (socket) {
                 }
                 if (!listPlayers.includes(user)) {
                     listPlayers.push(user);
-                    console.log(listPlayers[1])
+                   
                 }
                
                     Players++;
@@ -74,33 +74,47 @@ io.on('connection', function (socket) {
                     console.log("Player Amount:" + listPlayers.length)
                     console.log('Sending Players')
                     for (var x = 0; x < listPlayers.length; x++) {
-                            console.log(listPlayers[x])
-                                io.sockets.emit('MakePlayer', listPlayers[x])
-                                
-                                
+                                io.sockets.emit('MakePlayer', listPlayers[x])                    
                     }
                     io.sockets.emit('StartGame')
                     listPlayers = [];
                 }
 
-            } else {
-                console.log(user.password)
-                console.log(data.Password)
+            } else {  
                 console.log("password denied")
-
                 socket.emit("LoginDenied")
             }
         })
+
+    
+
+
     })
 
+    socket.on('APLayerPicked',function(data){
+        socket.broadcast.emit('OppenentPicked',data)
+    })
+
+    socket.on("Results",function(pResults){
+        console.log(pResults);
+        User.findOne({name:pResults.p1name}).then(function(user){
+             user.Wins = pResults.p1Wins,
+             user.Losses = pResults.p1Losses
+             user.save();
+        })
+        
+        User.findOne({name:pResults.p2name}).then(function(user){
+            user.Wins = pResults.p2Wins,
+            user.Losses = pResults.p2Losses
+            user.save();
+       })
+       
+       io.sockets.emit("Reset");
+    })
     socket.on('Test', function (data) {
         console.log('Client Connected')
-
     })
-
-
     //-----------
-
 })
 
 //Website

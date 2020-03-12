@@ -574,3 +574,6 @@ C:\Users\008001163\Documents\GitHub\Final\Game\obj\Debug\Assembly-CSharp.csproj.
 C:\Users\008001163\Documents\GitHub\Final\Game\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\008001163\Documents\GitHub\Final\Game\obj\Debug\Assembly-CSharp.dll
 C:\Users\008001163\Documents\GitHub\Final\Game\obj\Debug\Assembly-CSharp.pdb
+C:\Users\008001163\Documents\GitHub\Final\Game\Temp\bin\Debug\nunit.framework.dll
+C:\Users\008001163\Documents\GitHub\Final\Game\Temp\bin\Debug\nunit.framework.pdb
+C:\Users\008001163\Documents\GitHub\Final\Game\Temp\bin\Debug\nunit.framework.xml

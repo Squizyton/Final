@@ -11,11 +11,11 @@ public class Network : MonoBehaviour
     static SocketIOComponent socket;
 
 
-    public GameObject ServerStatus,incorrect, DataTransfer, ManagerOfUI, gameManager;
+    public GameObject ServerStatus,incorrect, DataTransfer, ManagerOfUI, gameManager, p1,p2;
     public GameObject playerSpawn;
     public int InLobby;
     public InputField regUsername, regPassword, regEmail, logUser,logPass;
-    public int PlayerNumber;
+    public int ClientNumber;
     public bool IsConnected = false;
     // Start is called before the first frame update
 
@@ -33,6 +33,25 @@ public class Network : MonoBehaviour
         socket.On("MakePlayer", MakePlayers);
         socket.On("GetPlayerNumber", GetNumber);
         socket.On("StartGame", StartGame);
+        socket.On("OppenentPicked", OpponentPicked);
+        socket.On("Reset", ResetForNextRound);
+    }
+
+    private void ResetForNextRound(SocketIOEvent obj)
+    {
+        Debug.Log("Resetting");
+        p1.GetComponent<Player>().picked = "";
+        p2.GetComponent<Player>().picked = "";
+        gameManager.GetComponent<GameManager>().p1Picked = false;
+        gameManager.GetComponent<GameManager>().p2Picked = false;
+        ManagerOfUI.GetComponent<UIManager>().Reset();
+    }
+
+    private void OpponentPicked(SocketIOEvent obj)
+    {
+        Debug.Log(int.Parse(obj.data["whoPicked"].ToString()));
+        gameManager.GetComponent<GameManager>().OppenentPick(int.Parse(obj.data["whoPicked"].ToString()), obj.data["theChoice"].ToString().Trim('"'));
+
     }
 
     private void StartGame(SocketIOEvent obj)
@@ -43,7 +62,8 @@ public class Network : MonoBehaviour
 
     private void GetNumber(SocketIOEvent obj)
     {
-        PlayerNumber = int.Parse(obj.data["playerNumber"].ToString());
+        ClientNumber = int.Parse(obj.data["playerNumber"].ToString());
+
     }
 
     private void LoginDenied(SocketIOEvent e)
@@ -64,6 +84,11 @@ public class Network : MonoBehaviour
     void OnConnected(SocketIOEvent e)
     {
         ChangeServerStatus();
+    }
+
+    public void SendChoice()
+    {
+
     }
 
     public void ChangeServerStatus()
@@ -92,23 +117,61 @@ public class Network : MonoBehaviour
     }
     void OnLogin(SocketIOEvent e)
     {
-        throw new NotImplementedException();
+        p1.GetComponent<Player>().picked = "";
+        p2.GetComponent<Player>().picked = "";
+        gameManager.GetComponent<GameManager>().p1Picked = false;
+        gameManager.GetComponent<GameManager>().p2Picked = false;
     }
 
+    
+
+    public void Picked(string choice)
+    {
+        //Debug.Log("Sending a thing");
+        ManagerOfUI.GetComponent<UIManager>().Waiting();
+        JSONObject data = new JSONObject();
+        data.AddField("whoPicked", ClientNumber);
+        data.AddField("theChoice", choice);
+        socket.Emit("APLayerPicked", data);
+    }
 
     private void MakePlayers(SocketIOEvent e)
     {
         InLobby++;
         GameObject player = Instantiate(playerSpawn);
-        player.name = "Player"+ players.Count + 1;
-        player.GetComponent<Player>().Name = e.data["name"].ToString();
-        player.GetComponent<Player>().Wins = e.data["Wins"].ToString();
-        player.GetComponent<Player>().Losses = e.data["Losses"].ToString();
+        int aNumber = players.Count + 1;
+        player.name = "p"+ aNumber;
+        player.GetComponent<Player>().Name = e.data["name"].ToString().Trim('"');
+        player.GetComponent<Player>().Wins = int.Parse(e.data["Wins"].ToString());
+        player.GetComponent<Player>().Losses = int.Parse(e.data["Losses"].ToString());
         player.GetComponent<Player>().PlayerNumber = players.Count + 1;
         players.Add(player.name, player);
-        Debug.Log("Made Player: " + e.data["name"].ToString());
+        Debug.Log("Made Player: " + e.data["name"].ToString().Trim('"'));
+        if (players.Count == 2)
+        {
+            AssignPlayers();
+            gameManager.GetComponent<GameManager>().SetPlayers();
+        }
     }
 
+    public void SendResults()
+    {
+        JSONObject pResults = new JSONObject();
+        pResults.AddField("p1name", p1.GetComponent<Player>().Name);
+     
+        pResults.AddField("p1Wins", p1.GetComponent<Player>().Wins);
+        pResults.AddField("p1Losses", p1.GetComponent<Player>().Losses);
+        pResults.AddField("p2name", p2.GetComponent<Player>().Name);
+        pResults.AddField("p2Wins", p2.GetComponent<Player>().Wins);
+        pResults.AddField("p2Losses", p2.GetComponent<Player>().Losses);
+        socket.Emit("Results", pResults);
+    }
+
+    void AssignPlayers()
+    {
+        p1 = GameObject.Find("p1");
+        p2 = GameObject.Find("p2");
+    }
 
     // Update is called once per frame
     void Update()   
