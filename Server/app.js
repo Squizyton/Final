@@ -148,6 +148,23 @@ app.post('/users/login', function (req, res, next) {
     })
 });
 
+app.get('/users/register', function (req, res) {
+    res.render('users/register');
+});
+
+app.post('/users/register', function(req,res){
+    var newUser = new User({
+        name:req.body.name,
+        email:req.body.email,
+        password:req.body.password,
+        Wins: 0,
+        Losses: 0
+    });
+
+    newUser.save()
+    console.log("New User made")
+    res.redirect('/users/listusers')
+})
 //List Users as a guest
 app.get('/users/listusers', function (req, res) {
     User.find().then(function (user) {
@@ -161,6 +178,20 @@ app.get('/users/listusers', function (req, res) {
     })
 });
 
+app.get('/users/topten', function (req, res) {
+    User.find().then(function (user) {
+       // console.log(user)
+     
+        user.sort(function(a, b){return b.Wins-a.Wins});
+        res.render('users/topten', {
+            user:user,
+            name: user.name,
+            wins: user.Wins,
+        })
+
+    })
+
+});
 
 
 //List Users as Admin

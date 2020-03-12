@@ -1,5 +1,13 @@
 <div class="jumbotron text-center">
     <h1 class="display-3">High Scores!</h1>
     <p class="lead">Here are the Top 10 Players!</p>
-    <a href="/users/login" class="btn btn-dark btn-lg">Login!</a>
+    {{#each user}}
+    <div class="card card-body">
+        <h4>{{name}}</h4>
+        <p>Wins: {{Wins}}</p>
+        <p>Losses: {{Losses}}</p>
+        </form>
+    </div>
+    {{else}}
+{{/each}}
 </div>
