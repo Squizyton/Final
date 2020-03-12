@@ -11,6 +11,8 @@ var Players = 0;
 var WebSitePort = 4000;
 var bodyParser = require('body-parser');
 var listPlayers = [];
+var scores = []
+var top10Scores = [10];
 //this code sets up template engine as express handlebars
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
@@ -158,6 +160,8 @@ app.get('/users/listusers', function (req, res) {
 
     })
 });
+
+
 
 //List Users as Admin
 

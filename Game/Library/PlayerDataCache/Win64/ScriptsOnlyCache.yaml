@@ -16,6 +16,12 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    Unity.TextMeshPro.dll:
+    - TMPro.TMP_FontAsset
+    - TMPro.TMP_Settings
+    - TMPro.TMP_SpriteAsset
+    - TMPro.TMP_StyleSheet
+    - TMPro.TextMeshProUGUI
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
@@ -56,21 +62,21 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11178}
+      Script: {instanceID: 11180}
     - Class: 114
-      Script: {instanceID: 11368}
+      Script: {instanceID: 11370}
     - Class: 114
-      Script: {instanceID: 11484}
+      Script: {instanceID: 11486}
     - Class: 114
-      Script: {instanceID: 11888}
+      Script: {instanceID: 11890}
     - Class: 114
-      Script: {instanceID: 12246}
+      Script: {instanceID: 12248}
     - Class: 114
-      Script: {instanceID: 12944}
+      Script: {instanceID: 12946}
     - Class: 114
-      Script: {instanceID: 13284}
+      Script: {instanceID: 13286}
     - Class: 114
-      Script: {instanceID: 13378}
+      Script: {instanceID: 13380}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -94,9 +100,21 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 21
       Script: {instanceID: 0}
+    - Class: 23
+      Script: {instanceID: 0}
     - Class: 28
       Script: {instanceID: 0}
+    - Class: 33
+      Script: {instanceID: 0}
+    - Class: 43
+      Script: {instanceID: 0}
     - Class: 48
+      Script: {instanceID: 0}
+    - Class: 49
+      Script: {instanceID: 0}
+    - Class: 64
+      Script: {instanceID: 0}
+    - Class: 65
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
@@ -106,34 +124,46 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 108
       Script: {instanceID: 0}
+    - Class: 109
+      Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11178}
+      Script: {instanceID: 11180}
     - Class: 114
-      Script: {instanceID: 11282}
+      Script: {instanceID: 11284}
     - Class: 114
-      Script: {instanceID: 11334}
+      Script: {instanceID: 11336}
     - Class: 114
-      Script: {instanceID: 11368}
+      Script: {instanceID: 11370}
     - Class: 114
-      Script: {instanceID: 11412}
+      Script: {instanceID: 11414}
     - Class: 114
-      Script: {instanceID: 11888}
+      Script: {instanceID: 11890}
     - Class: 114
-      Script: {instanceID: 12246}
+      Script: {instanceID: 11918}
     - Class: 114
-      Script: {instanceID: 12358}
+      Script: {instanceID: 12248}
     - Class: 114
-      Script: {instanceID: 12578}
+      Script: {instanceID: 12360}
     - Class: 114
-      Script: {instanceID: 12646}
+      Script: {instanceID: 12580}
     - Class: 114
-      Script: {instanceID: 12944}
+      Script: {instanceID: 12618}
     - Class: 114
-      Script: {instanceID: 12996}
+      Script: {instanceID: 12632}
     - Class: 114
-      Script: {instanceID: 13284}
+      Script: {instanceID: 12648}
     - Class: 114
-      Script: {instanceID: 13378}
+      Script: {instanceID: 12868}
+    - Class: 114
+      Script: {instanceID: 12946}
+    - Class: 114
+      Script: {instanceID: 12998}
+    - Class: 114
+      Script: {instanceID: 13140}
+    - Class: 114
+      Script: {instanceID: 13286}
+    - Class: 114
+      Script: {instanceID: 13380}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -649,4 +679,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/MainMenu.unity
   - Assets/Scenes/Game.unity
-  playerPath: C:/Users/008001163/Documents/GitHub/Final/Builds/WebAPI Final.exe
+  playerPath: C:/Users/008001163/Documents/Final/Builds/WebAPI Final.exe
